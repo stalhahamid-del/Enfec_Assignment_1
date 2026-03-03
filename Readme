@@ -1,0 +1,208 @@
+# AI Agent System - Django + LangGraph + Streamlit
+
+##  Overview
+
+This project demonstrates a simple multi-agent system using:
+
+* Planner Agent - decides what needs to be done
+* Research Agent - uses an MCP tool (mock search)
+* LangGraph - connects agents in a workflow
+* Django REST Framework (DRF) - backend API
+* PostgreSQL - database
+* Streamlit - frontend UI
+
+---
+
+#  How It Works
+
+1. User enters a question in Streamlit
+2. Planner agent creates a plan
+3. Research agent calls MCP tool
+4. Final answer is returned
+5. Conversation is stored in PostgreSQL
+
+Example:
+
+
+Question: What is the capital of France?
+
+Planner: Need to search for: capital of France
+Research: Paris
+Final Answer: Paris
+
+
+---
+
+# Project Structure
+
+
+assignment-1/
+│
+├── backend/
+│   ├── api/
+│   ├── backend/
+│   └── manage.py
+│
+├── frontend/
+│   └── app.py
+│
+└── README.md
+
+
+---
+
+# Setup & Execution Guide
+
+## 1️⃣ Create Virtual Environment
+
+Recommended Python version: 3.10 or 3.11
+
+
+python -m venv venv
+
+
+Activate:
+
+Windows
+
+
+venv\Scripts\activate
+
+
+Mac/Linux
+
+
+source venv/bin/activate
+
+
+---
+
+## 2️⃣ Install Dependencies
+
+
+pip install django djangorestframework psycopg2 langgraph langchain streamlit
+
+
+---
+
+## 3️⃣ Setup PostgreSQL
+
+Create a database (example: agent_db).
+
+Update backend/settings.py:
+
+python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'agent_db',
+        'USER': 'postgres',
+        'PASSWORD': 'yourpassword',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+
+---
+
+## 4️⃣ Run Migrations
+
+Go to backend folder:
+
+
+cd backend
+python manage.py makemigrations
+python manage.py migrate
+
+
+---
+
+## 5️⃣ Start Django Server
+
+
+python manage.py runserver
+
+
+Backend runs at:
+
+
+http://127.0.0.1:8000/
+
+
+---
+
+## 6️⃣ Run Streamlit Frontend
+
+Open new terminal:
+
+
+cd frontend
+streamlit run app.py
+
+
+Frontend runs at:
+
+
+http://localhost:8501
+
+
+---
+
+#  API Endpoint
+
+### POST /api/ask/
+
+Request:
+
+json
+{
+  "question": "What is the capital of France?"
+}
+
+
+Response:
+
+json
+{
+  "question": "What is the capital of France?",
+  "plan": "Need to search for: capital of France",
+  "answer": "Paris"
+}
+
+
+---
+
+#  Database Storage
+
+Each conversation is stored with:
+
+* question
+* plan
+* answer
+* timestamp
+
+---
+
+# 🚨 Common Issues
+
+### ❌ column "plan" does not exist
+
+Run:
+
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+---
+
+# ✅ Summary
+
+This project shows:
+
+* Multi-agent workflow with LangGraph
+* MCP tool integration
+* DRF backend API
+* PostgreSQL storage
+* Streamlit user interface

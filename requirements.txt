@@ -1,0 +1,9 @@
+django
+djangorestframework
+psycopg2-binary
+redis
+langgraph
+fastapi
+uvicorn
+requests
+streamlit
