@@ -14,3 +14,6 @@ def search(query: str):
         "query": query,
         "result": MOCK_DATA.get(query.lower(), "No result found.")
     }
+
+if __name__ == "__main__":
+    uvicorn.run("server:app", host="127.0.0.1", port=8001, reload=True)
